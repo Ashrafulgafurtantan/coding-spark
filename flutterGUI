@@ -216,6 +216,22 @@ pageChange(int pageIndex){
       //////////////////////////////////////////////////////////////////////
 
 
+SPINKIT
+just ekta class er modde rekhe eita call korle e hobe.............
+Container squareCircleSpinKit() {
+
+    return Container(
+      color: Colors.deepOrange,
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(top: 10),
+      child: SpinKitSquareCircle(
+        color: Colors.yellowAccent,
+        size: 50.0,
+      ),
+    );
+}
+///////////////////////////////////////////////
+
 
 
         
