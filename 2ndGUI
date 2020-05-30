@@ -1,13 +1,15 @@
 function er shokoal parameter comboulsary na erokom ekta function hocche header
 
 onnokhan theke call kora hoise header k
-      appBar: header(context,title: 'Activity'),
+      appBar: header(context,title: 'Activity',removeBackButton:true),
       isTimeline er kono value na dile o hobe..
       
  r header hocche
   
-AppBar header(BuildContext context,{bool isTimeline=false, String title}){
+AppBar header(BuildContext context,{bool isTimeline=false, String title,bool removeBackButton=false}){
   return AppBar(
+      automaticallyImplyLeading:removeBackButton? false : true,
+
     backgroundColor: Theme.of(context).accentColor,
     title: Text(title,
       style: TextStyle(
@@ -19,6 +21,57 @@ AppBar header(BuildContext context,{bool isTimeline=false, String title}){
       ),
     ),
   );
+  
+  ///////////////////////////////////////////////////////
+  A textFormField with validation
+  
+   final _formKey=GlobalKey<FormState>();
+  final _scaffold=GlobalKey<ScaffoldState>();
+
+  String username;
+/////////Submit hocche oi button ta jeta chapar por validation shuru hbe ba Work start howa bujjache
+  submit(){
+    final form=_formKey.currentState;
+    if(form.validate()){
+      SnackBar snackBar=SnackBar(content: Text('Welcome $username'));
+      _scaffold.currentState.showSnackBar(snackBar);
+      print(username);
+      Timer(Duration(seconds: 2),()async{
+      await  Navigator.pop(context,username);
+      });
+    }
+
+  }
+  
+ Container(
+  child: Form(
+    key: _formKey,
+    autovalidate: true,
+    child: TextFormField(
+
+      validator: (val){
+        if(val.trim().length<3||val.trim().isEmpty){
+          return 'Too short';
+
+        }
+        else if(val.trim().length>13)
+          return 'Too long';
+        else
+          return null;
+      },
+     onChanged: (val){
+        username=val;
+     },
+      decoration: InputDecoration(
+        labelText: 'Username',
+        labelStyle: TextStyle(
+          fontSize: 15,
+        ),
+        hintText: 'At least 3 characters',
+        border: OutlineInputBorder(),
+      ),),),)
+
+
   
   
   
