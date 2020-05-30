@@ -1,0 +1,155 @@
+
+//ekta pasge er bg color bivinno rokom korte eta use hoi.....
+return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Colors.teal,
+              Colors.purple,
+            //  Theme.of(context).primaryColor,
+             // Theme.of(context).accentColor,
+            ],
+          ),
+        ),
+        alignment: Alignment.center,
+        
+        
+        //Chobi shoho button banaite chaile..........
+         GestureDetector(
+              onTap: (){
+               SignIn();
+
+              },
+              child: Container(
+                height: 60,
+                width:260 ,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/google_signin_button.png'),
+                    fit: BoxFit.cover,
+                  )
+                ),
+              ),
+            )
+        
+        ),//container
+        );//scaffold
+        
+        
+        
+        
+        
+        
+        ///GOOGLE SIGN IN..............
+        use korar age just firebase er authentication e google authentication enable korte hbe.....
+        
+ import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+final GoogleSignIn googleSignIn=GoogleSignIn();
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  bool isAuth=false;
+  login(){
+
+    googleSignIn.signIn();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //1)login run howar sate sathe ekta liste e shune r tokhon e account e dhuke but eta save rakhthe pare nah
+    googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+     handleSignIn(account);
+    },onError: (error){
+      print('Error:$error');
+
+    });
+    //2)save rakhar jonno bebohar hoi ei function.....
+   googleSignIn.signInSilently(suppressErrors: false).then((GoogleSignInAccount account){
+     handleSignIn(account);
+    },).catchError((err){
+      print('Error:$err');
+    });
+  }
+  logout(){
+    googleSignIn.signOut();
+    
+  }
+
+  handleSignIn(GoogleSignInAccount account){
+    if(account!=null){
+      print('Google sign in;$account');
+      setState(() {
+        isAuth=true;
+      });
+    }
+    else{
+      setState(() {
+        isAuth=false;
+      });
+    }
+  }
+  authentication(){
+    return Container(
+      child: RaisedButton(onPressed: logout,
+        child: Text('Logout'),
+      )
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return isAuth ? authentication(): Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Theme.of(context).primaryColor,
+              Theme.of(context).accentColor,
+              Colors.blueAccent,
+            ],
+          ),
+        ),
+        alignment: Alignment.center,
+        child: GestureDetector(
+          onTap: (){
+            print('onTap....');
+            login();
+
+          },
+          child: Container(
+            height: 60,
+            width: 270,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/google_signin_button.png'),
+              )
+            ),
+          ),
+        ),
+      ),
+      
+    );
+  }
+}
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
