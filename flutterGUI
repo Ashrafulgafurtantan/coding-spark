@@ -45,6 +45,10 @@ return Scaffold(
         
         ///GOOGLE SIGN IN..............
         use korar age just firebase er authentication e google authentication enable korte hbe.....
+        GoogleSignIn import kora.
+        then j button e tap kore gmail er page ta ashe oi on tap function e GoogleSignIn.signIn() use korbo.
+        then inite state e 2ta function add kora lage.
+        log out er jonno log in howar por j page e jabe shei page e ekta buton e GoogleSignIn.signOut() use korte hobe...
         
  import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -143,6 +147,71 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
+
+///////////////////////////////////////////////////////////////
+Navigation bottom bar create e 2ta jinish lage 1.pageView 2)NavigationbottobBar.
+
+PageView te shokol page add kore then ekta int pageIndex lagano,r controller lagate hbe.ekta onPageChange function use kore 
+pageIndex ta change kora.....
+
+tar niche NavigationBottomBar use korte hbe.
+
+PageController pageController;
+initState er vitor {
+      pageController=PageController();
+}
+
+  int pageIndex=0;
+
+pageChange(int pageIndex){
+    setState(() {
+      this.pageIndex=pageIndex;
+    });
+
+  }
+  
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    pageController.dispose();
+  }
+
+  
+  onTap(int pageIndex){
+    pageController.jumpToPage(pageIndex);
+  }
+
+ PageView(
+        children: <Widget>[
+          Timeline(),
+          ActivityFeed(),
+          Search(),
+          Upload(),
+          Profile(),
+        ],
+        physics: NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: pageChange,
+      ),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: pageIndex,
+        activeColor: Theme.of(context).primaryColor,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.whatshot)),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_active)),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_alt,size: 35,)),
+          BottomNavigationBarItem(icon: Icon(Icons.search)),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle)),
+        ],
+        onTap: onTap,
+      ),
+    
+      //////////////////////////////////////////////////////////////////////
+
+
+
 
         
         
