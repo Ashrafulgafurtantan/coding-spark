@@ -1,0 +1,85 @@
+Appbar e search engin add(TextFormField) and shokol search(QuerySnapshot) show
+
+Future<QuerySnapshot>searchResultFuture;
+  TextEditingController controller;
+  
+  handleSearch(String query){
+    String s='';
+    for(int i=0;i<query.length;i++){
+      if(i==0)
+        s+=query[i].toUpperCase();
+      s+=query[i];
+    }
+    query=s;
+    Future <QuerySnapshot> users=userRef.where('displayname',isGreaterThanOrEqualTo: query).limit(7).getDocuments();
+
+    setState(() {
+      searchResultFuture=users;
+    });
+
+  }
+
+AppBar(
+     backgroundColor: Colors.white,
+     title: TextFormField(
+       style: TextStyle(
+         fontSize: 20,
+         color: Colors.purple,
+       ),
+       controller: controller,
+       autofocus: true,
+       decoration: InputDecoration(
+           hintText: 'Search here',
+           hintStyle: TextStyle(
+             fontSize: 20,
+             color: Colors.purple,
+           ),
+           filled: true,
+           prefix: Icon(Icons.account_box,size: 28,color: Colors.grey,),
+           suffix: IconButton(
+             icon: Icon(Icons.clear,size: 28,color: Colors.grey,),
+             onPressed: (){
+               //  print('cleared');
+               controller.clear();
+             },
+           )
+       ),
+       onFieldSubmitted: handleSearch,///////////////khub e important
+     ),
+
+   );//AppBar
+   
+   ////////////////////////////////////////////////////////////////////////////////
+   
+   Orientation LandScape naki potraite
+   
+    Orientation or=MediaQuery.of(context).orientation;
+    return Container(
+      child: Center(
+       child: SvgPicture.asset('assets/images/search.svg',
+          height: or==Orientation.landscape ? 150:350
+        ),),);
+   ////////////////////////////////////////////////////////////////////
+   RaisedButton
+   
+   RaisedButton(
+              child: Text('Upload',
+              style: TextStyle(
+                color: Colors.white54,
+                fontSize: 22,
+              ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              color: Colors.deepOrange,
+              onPressed: (){
+              //    print('pressed');
+                selectImage(context);
+              },
+
+            ),//RaisedButton
+/////////////////////////////////////////////////////////////////
+
+
+   
