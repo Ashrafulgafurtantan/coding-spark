@@ -81,5 +81,94 @@ AppBar(
             ),//RaisedButton
 /////////////////////////////////////////////////////////////////
 
+Compressed Image..........just eta call korle e hobe
 
+ compressedImage()async{
+    final tempDir=await getTemporaryDirectory();
+    final path=  tempDir.path;
+    Im.Image imgFile = Im.decodeImage(file.readAsBytesSync());
+    
+    final compressedFile=File('$path/img_$postId.jpg')..writeAsBytesSync(Im.encodeJpg(imgFile,quality: 85));
+    setState(() {
+      file=compressedFile;
+    });
+    
+  }
+  /////////////////////////////////////////////////////////////////////////
+   /////////////////////////////////////////////////////////////////////////
+   FireStorage e image addition
+   final StorageReference storageReference=FirebaseStorage.instance.ref();
+   
+    Future<String> uploadImage(imgFile)async{
+
+   StorageUploadTask storageUploadTask =await storageReference.child('post_$postId.jpg').putFile(imgFile);
+
+   StorageTaskSnapshot storageTaskSnapshot  =await storageUploadTask.onComplete;
+
+  String downUrl=await storageTaskSnapshot.ref.getDownloadURL();
+  return downUrl;
+  }
+  EY downUrl ta dea FIRESTORE E IMAGER E R LINK RAKHA HOI mediaUrl hishebe
+    /////////////////////////////////////////////////////////////////////////
+    
+    
+  bam pashe icon/circular avater shoho textField
+  
+    ListTile(
+            leading: CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(widget.currentUser.photoUrl),
+              backgroundColor: Colors.grey,
+
+            ),
+            title: Container(
+              height: 120,
+              child: TextField(
+                controller: captionController,
+                decoration: InputDecoration(
+                  hintText: 'Write a Caption',
+                  border: InputBorder.none,
+
+                ),
+              ),
+            ),
+          ),//listTile
+   //////////////////////////////////////////////////////////////////////////////
+   button e click kore e location get and location value kono textFiekd e addd
+   
+     Container(
+            height: 100,
+            width: 200,
+            alignment: Alignment.center,
+            child: RaisedButton.icon(
+              color: Colors.blueAccent,
+              icon: Icon(Icons.my_location,
+              color: Colors.white,
+              ),
+              label: Text('Use Current location',
+              style: TextStyle(
+                color: Colors.white,
+              ),
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)
+              ),
+              onPressed: ()async{
+               final Position position=await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+                List<Placemark>placemarks=await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude);
+                Placemark placemark=placemarks[0];
+                String formattedAddress='${placemark.locality},${placemark.country}';
+
+                setState(() {
+                  locationController.text=formattedAddress;
+                });
+              },
+            ),
+          )//container
+   
+   
+   
+   
+   
+   
+   
    
