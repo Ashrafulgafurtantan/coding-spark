@@ -1,0 +1,31 @@
+GridView
+
+  List<GridTile>gridTile=[];
+      posts.forEach((post){
+        gridTile.add(GridTile(child: PostTile(post: post,),));
+      });
+      //PostTile e just ekta gesture er vitor child e ekta image.
+     // then oi img e click korle PostScren ba just Post ta dekhabe
+      return GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+        crossAxisSpacing: 1.5,
+        mainAxisSpacing: 1.5,
+        physics: NeverScrollableScrollPhysics(),
+        children: gridTile,
+        shrinkWrap: true,
+      );
+      ////////////////////////////////////////////////////////////////////////////////////
+      
+      
+      
+      ////////////////////////////////////////////////////////////////////////////////////
+      
+      
+      ////////////////////////////////////////////////////////////////////////////////////
+      
+      
+      ////////////////////////////////////////////////////////////////////////////////////
+      
+      
+      ////////////////////////////////////////////////////////////////////////////////////
