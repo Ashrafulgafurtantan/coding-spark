@@ -1,6 +1,6 @@
 Fulll post er gui ta dewa ache,
 img e double click e react,cmntshob kichu
-
+picture kivabe fade theke full view pawa jae ta 
 
 import 'dart:async';
 import 'package:animator/animator.dart';
@@ -84,6 +84,21 @@ class _PostState extends State<Post> {
     this.ownerId,this.description,this.likes
     ,this.location,this.mediaUrl,this.likeCount
     ,this.username});
+
+//////////////////////////////picture kivabe fade theke full view pawa jae 
+Widget cachedNetworkImage(mediaUrl) {
+  return CachedNetworkImage(
+    imageUrl: mediaUrl,
+    fit: BoxFit.cover,
+    placeholder: (context,url)=>Padding(
+      padding: EdgeInsets.all(20),
+      child: CircularProgressIndicator(),
+    ),
+    errorWidget: (context,url,error)=>Icon(Icons.error),
+  );
+}
+
+
 
   buildPostHeader(){
    // print(ownerId);
