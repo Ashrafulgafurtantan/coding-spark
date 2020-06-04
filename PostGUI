@@ -289,17 +289,16 @@ Widget cachedNetworkImage(mediaUrl) {
           // Image.network(mediaUrl),
           cachedNetworkImage(mediaUrl),
 
-          showHeart ? Animator(
-            duration: Duration(milliseconds: 300),
-            tween: Tween(begin: 0.8, end: 1.4),
+          showHeart ? Animator<double>(
+              tween: Tween(begin: 0.8, end: 1.4),
+              cycles: 0,
             curve: Curves.elasticOut,
-            cycles: 0,
-            builder: (anim)=>Transform.scale(
-              scale:anim.value,
-              child: Icon(Icons.favorite,size: 130,
-                color: Colors.red.withOpacity(.20),
-              ),
-            ),) :  Text('')
+            builder: (context, animatorState, child ) => Transform.scale(
+              scale: animatorState.value,
+                child: Icon(Icons.favorite,size: 130,
+                  color: Colors.red.withOpacity(.20),
+                ),
+              ) ,) :  Text('')
         ],
       ),
     );
