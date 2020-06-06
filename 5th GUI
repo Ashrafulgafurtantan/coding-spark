@@ -16,9 +16,18 @@ GridView
         shrinkWrap: true,
       );
       ////////////////////////////////////////////////////////////////////////////////////
+      Short time memory dhore rakhbe...............
       
       
+     class _ClassnameState extends State<Classname> with AutomaticKeepAliveClientMixin
+<Classname>{.......}
       
+       bool get wantKeepAlive =>true;
+
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Container(child:Text('lol'),) ;
+  }
       ////////////////////////////////////////////////////////////////////////////////////
       
       
